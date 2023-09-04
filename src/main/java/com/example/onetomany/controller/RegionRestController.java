@@ -1,5 +1,6 @@
 package com.example.onetomany.controller;
 
+import com.example.onetomany.model.Kommune;
 import com.example.onetomany.model.Region;
 import com.example.onetomany.repository.RegionRepository;
 import com.example.onetomany.service.ApiServiceGetRegioner;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class RegionRestController {
@@ -34,6 +36,21 @@ public class RegionRestController {
         List<Region> regionListe = regionRepository.findAll();
         return regionListe;
     }
+
+    //Get all kommuner in regioner
+    @GetMapping("/kommuneInRegion/{id}")
+    public ResponseEntity<Set<Kommune>> getKommunerInRegion(@PathVariable String id) {
+        Optional<Region> orgRegion = regionRepository.findById(id);
+
+        if (orgRegion.isPresent()) {
+            Region region = orgRegion.get();
+            Set<Kommune> kommuner = region.getKommuner();
+            return ResponseEntity.ok(kommuner);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     //Add region
     @PostMapping ("/region")
