@@ -26,7 +26,7 @@ public class ApiServiceGetKommunerImpl implements ApiServiceGetKommuner {
 
     String kommuneUrl = "https://api.dataforsyningen.dk/kommuner";
 
-    private void saveRegioner(List<Kommune> kommuner) {
+    private void saveKommuner(List<Kommune> kommuner) {
         kommuner.forEach(kommune -> kommuneRepository.save(kommune));
     }
 
@@ -38,7 +38,7 @@ public class ApiServiceGetKommunerImpl implements ApiServiceGetKommuner {
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Kommune>>() {
                         });
         List<Kommune> kommuner = kommuneResponse.getBody();
-        saveRegioner(kommuner);
+        saveKommuner(kommuner);
         return kommuner;
     }
 }

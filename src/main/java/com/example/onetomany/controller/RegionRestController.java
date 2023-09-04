@@ -55,6 +55,7 @@ public class RegionRestController {
         }
     }
 
+    //Delete Region
     @DeleteMapping ("/region/{id}")
     public ResponseEntity<String> deleteRegion(@PathVariable String id) {
         Optional<Region> orgRegion = regionRepository.findById(id);
